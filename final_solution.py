@@ -2,7 +2,7 @@
 # NCERT Mini Project - RAG-based Q&A System
 # =============================================================================
 # Dependencies (all pure-Python, no native DLLs):
-#   python -m pip install pdfplumber rank_bm25 transformers nltk requests
+#   python -m pip install pdfplumber rank_bm25 transformers nltk requests python-dotenv
 # =============================================================================
 
 import os
@@ -14,13 +14,17 @@ from collections import Counter
 import requests
 from rank_bm25 import BM25Okapi
 from transformers import AutoTokenizer
+from dotenv import load_dotenv
+
+# Load variables from .env file into os.environ (if present)
+load_dotenv()
 
 # ------------------------------------------------------------------
 # Configuration
 # ------------------------------------------------------------------
 
-PDF_FILE_PATH = "ncert-9.pdf"          # Update path as needed
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")  # Set via environment variable
+PDF_FILE_PATH  = "ncert-9.pdf"          # Update path as needed
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")  # Loaded from .env or shell env
 
 nltk.download("stopwords", quiet=True)
 
